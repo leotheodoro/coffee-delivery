@@ -1,7 +1,16 @@
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 
 import homeCoffeeDeliveryImg from '../../assets/home-coffee-delivery.svg'
-import { HomeAdvantages, HomeContainer, HomeInfo, HomeSection } from './styles'
+import {
+  HomeAdvantages,
+  HomeCoffeeSection,
+  HomeContainer,
+  HomeInfo,
+  HomeSection,
+} from './styles'
+
+import coffeesObject from '../../assets/coffees-object/coffeesObject'
+import { FullCardCoffee } from '../../components/FullCardCoffee'
 
 export function Home() {
   return (
@@ -36,6 +45,14 @@ export function Home() {
         </HomeInfo>
         <img src={homeCoffeeDeliveryImg} alt="" />
       </HomeSection>
+      <HomeCoffeeSection>
+        <h3>Nossos cafés</h3>
+        <div>
+          {coffeesObject.map((coffee) => (
+            <FullCardCoffee coffee={coffee} key={coffee.id} />
+          ))}
+        </div>
+      </HomeCoffeeSection>
     </HomeContainer>
   )
 }
