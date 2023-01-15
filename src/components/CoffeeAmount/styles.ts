@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const FullCardCoffeeAmountContainer = styled.div`
+export const CoffeeAmountContainer = styled.div`
   display: flex;
   flex-direction: row;
   border-radius: 5px;

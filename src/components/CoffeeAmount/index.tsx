@@ -1,13 +1,13 @@
 import { Minus, Plus } from 'phosphor-react'
-import { FullCardCoffeeAmountContainer } from './styles'
+import { CoffeeAmountContainer } from './styles'
 
-export const FullCardCoffeeAmount = () => {
+export const CoffeeAmount = () => {
   function handleAddOne() {}
 
   function handleRemoveOne() {}
 
   return (
-    <FullCardCoffeeAmountContainer>
+    <CoffeeAmountContainer>
       <button onClick={handleRemoveOne} title="Remover um">
         <Plus />
       </button>
@@ -15,6 +15,6 @@ export const FullCardCoffeeAmount = () => {
       <button onClick={handleAddOne} title="Adicionar um">
         <Minus />
       </button>
-    </FullCardCoffeeAmountContainer>
+    </CoffeeAmountContainer>
   )
 }

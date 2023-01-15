@@ -1,3 +1,12 @@
-export function OrderCheckout() {
-  return <h1>OrderCheckout</h1>
+import { CartInfo } from '../../components/CartInfo'
+import { PaymentForm } from '../../components/PaymentForm'
+import { OrderCheckoutContainer } from './styles'
+
+export const OrderCheckout = () => {
+  return (
+    <OrderCheckoutContainer>
+      <PaymentForm />
+      <CartInfo />
+    </OrderCheckoutContainer>
+  )
 }
