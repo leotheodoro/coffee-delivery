@@ -136,12 +136,24 @@ export const PaymentTypeButton = styled.button<PaymentButtonProps>`
   }
 
   &:hover {
-    background-color: ${(props) => props.theme.colors['base-hover']};
+    background-color: ${(props) => props.theme.colors.purple};
+    color: ${(props) => props.theme.colors.white};
+
+    svg {
+      color: ${(props) => props.theme.colors.white};
+    }
   }
 
   ${(props) =>
     css`
       border: ${props.selected ? '1px solid' : 'none'};
       border-color: ${props.selected && props.theme.colors.purple};
+      background-color: ${props.selected && props.theme.colors.purple};
+
+      color: ${props.selected && props.theme.colors.white};
+
+      svg {
+        color: ${props.selected && props.theme.colors.white};
+      }
     `}
 `
