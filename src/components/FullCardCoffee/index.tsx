@@ -1,3 +1,5 @@
+import { ShoppingCart } from 'phosphor-react'
+import { FullCardCoffeeAmount } from './FullCardCoffeeAmount'
 import {
   FullCardCoffeeContainer,
   FullCardCoffeeInfo,
@@ -34,6 +36,10 @@ export const FullCardCoffee = ({ coffee }: FullCardCoffeeProps) => {
         <p>
           R$ <span>{coffee.price}</span>
         </p>
+        <FullCardCoffeeAmount />
+        <button>
+          <ShoppingCart />
+        </button>
       </FullCardCoffeePrice>
     </FullCardCoffeeContainer>
   )
