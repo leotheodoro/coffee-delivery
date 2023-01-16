@@ -22,7 +22,7 @@ export const HalfCardCoffee = ({ coffee }: HalfCoffeeCardProps) => {
           <p>{`R$ ${coffee.price}`}</p>
         </HalfCardCoffeeInfo>
         <HalfCardCoffeeSale>
-          <CoffeeAmount />
+          <CoffeeAmount coffee={coffee} />
           <RemoveCoffeeButton>
             <Trash />
             <span>REMOVER</span>

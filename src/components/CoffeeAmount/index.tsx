@@ -1,18 +1,24 @@
 import { Minus, Plus } from 'phosphor-react'
 import { CoffeeAmountContainer } from './styles'
 
-export const CoffeeAmount = () => {
-  function handleAddOne() {}
+interface CoffeeAmountProps {
+  quantity: number
+  handleAdd: () => void
+  handleRemove: () => void
+}
 
-  function handleRemoveOne() {}
-
+export const CoffeeAmount = ({
+  quantity,
+  handleAdd,
+  handleRemove,
+}: CoffeeAmountProps) => {
   return (
     <CoffeeAmountContainer>
-      <button onClick={handleRemoveOne} title="Remover um">
+      <button onClick={handleAdd} title="Remover um">
         <Plus />
       </button>
-      <span>0</span>
-      <button onClick={handleAddOne} title="Adicionar um">
+      <span>{quantity}</span>
+      <button onClick={handleRemove} title="Adicionar um">
         <Minus />
       </button>
     </CoffeeAmountContainer>

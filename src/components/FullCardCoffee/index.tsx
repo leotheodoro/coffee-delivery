@@ -1,5 +1,6 @@
 import { ShoppingCart } from 'phosphor-react'
-import { Coffee } from '../../contexts/CartContext'
+import { useContext, useState } from 'react'
+import { CartContext, Coffee } from '../../contexts/CartContext'
 import { CoffeeAmount } from '../CoffeeAmount'
 import {
   FullCardCoffeeContainer,
@@ -13,6 +14,28 @@ interface FullCardCoffeeProps {
 }
 
 export const FullCardCoffee = ({ coffee }: FullCardCoffeeProps) => {
+  const { onAdd } = useContext(CartContext)
+  const [quantity, setQuantity] = useState(0)
+
+  function handleAdd() {
+    setQuantity((oldQuantity) => oldQuantity + 1)
+  }
+
+  function handleRemove() {
+    if (quantity === 0) return
+
+    setQuantity((oldQuantity) => oldQuantity - 1)
+  }
+
+  function handleAddToCart() {
+    const coffeeToAdd = {
+      ...coffee,
+      quantity,
+    }
+
+    onAdd(coffeeToAdd)
+  }
+
   return (
     <FullCardCoffeeContainer>
       <img src={coffee.image} alt={coffee.title} />
@@ -27,8 +50,12 @@ export const FullCardCoffee = ({ coffee }: FullCardCoffeeProps) => {
         <p>
           R$ <span>{coffee.price}</span>
         </p>
-        <CoffeeAmount />
-        <button>
+        <CoffeeAmount
+          quantity={quantity}
+          handleAdd={handleAdd}
+          handleRemove={handleRemove}
+        />
+        <button onClick={handleAddToCart}>
           <ShoppingCart />
         </button>
       </FullCardCoffeePrice>

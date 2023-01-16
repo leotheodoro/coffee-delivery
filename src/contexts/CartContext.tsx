@@ -5,21 +5,17 @@ export interface Coffee {
   id: string
   title: string
   tags: string[]
-  amount: number
+  quantity: number
   description: string
   image: string
   price: number
 }
 
-export interface Item extends Coffee {
-  quantity: number
-}
-
 interface CartContextType {
-  items: Item[]
+  items: Coffee[]
   quantity: number
   total: number
-  onAdd: (coffee: Item) => void
+  onAdd: (coffee: Coffee) => void
   onChangeItem: (coffeeId: string, type: 'add' | 'remove') => void
   onRemove: (coffeeId: string) => void
   onClean: () => void
@@ -34,7 +30,7 @@ const COFFEE_DELIVERY_STORAGE_KEY = '@coffeeDelivery'
 export const CartContext = createContext({} as CartContextType)
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [items, setItems] = useState<Item[]>(() => {
+  const [items, setItems] = useState<Coffee[]>(() => {
     const storedItems = localStorage.getItem(
       `${COFFEE_DELIVERY_STORAGE_KEY}:items`,
     )
@@ -52,12 +48,13 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     return amount + coffee.price * coffee.quantity
   }, 0)
 
-  function onAdd(coffee: Item) {
+  function onAdd(coffee: Coffee) {
+    console.log(coffee)
     const coffeeAlreadyExistsInCart = items.findIndex(
       (item) => item.id === coffee.id,
     )
 
-    const newCart: Item[] = produce(items, (draft) => {
+    const newCart: Coffee[] = produce(items, (draft) => {
       if (coffeeAlreadyExistsInCart < 0) {
         draft.push(coffee)
       } else {
