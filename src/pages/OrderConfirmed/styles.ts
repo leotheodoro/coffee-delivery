@@ -65,6 +65,23 @@ export const OrderConfirmedInfo = styled.div`
     background-color: ${(props) => props.theme.colors.yellow};
   }
 
+  button {
+    margin-left: 3rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    width: 80%;
+    height: 4.6rem;
+    color: ${(props) => props.theme.colors.white};
+    background-color: ${(props) => props.theme.colors.yellow};
+    transition: 0.25s;
+
+    :hover {
+      background-color: ${(props) => props.theme.colors['yellow-dark']};
+    }
+  }
+
   @media (max-width: 1550px) {
     margin: 0;
     height: max-content;

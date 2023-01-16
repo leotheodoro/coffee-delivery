@@ -119,6 +119,9 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
   function onClean() {
     setItems([])
+    localStorage.removeItem(`${COFFEE_DELIVERY_STORAGE_KEY}:items`)
+    localStorage.removeItem(`${COFFEE_DELIVERY_STORAGE_KEY}:order`)
+    window.location.href = '/'
   }
 
   function onNewOrder(order: Order) {

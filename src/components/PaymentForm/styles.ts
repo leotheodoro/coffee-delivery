@@ -157,3 +157,40 @@ export const PaymentTypeButton = styled.button<PaymentButtonProps>`
       }
     `}
 `
+
+export const Validation = styled.div`
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  font-size: ${(props) => props.theme.fonts.sizes.small3};
+  justify-content: space-between;
+  margin-top: 10px;
+
+  @media (max-width: 680px) {
+    justify-content: center;
+  }
+`
+
+interface ValidFieldProps {
+  valid: boolean
+  theme: ThemeType
+}
+
+const isFieldValidColor = (valid: boolean, theme: ThemeType) => css`
+  color: ${valid ? theme.colors['green-color'] : theme.colors['red-color']};
+`
+
+export const FieldValidation = styled.p<ValidFieldProps>`
+  width: max-content;
+  min-width: 50%;
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  text-align: justify;
+
+  ${(props) => isFieldValidColor(props.valid, props.theme)}
+
+  & svg {
+    margin-left: 10px;
+  }
+`

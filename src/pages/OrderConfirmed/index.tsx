@@ -11,7 +11,7 @@ import { CartContext } from '../../contexts/CartContext'
 import { readablePaymentType } from '../../utils/readablePaymentType'
 
 export function OrderConfirmed() {
-  const { order } = useContext(CartContext)
+  const { order, onClean } = useContext(CartContext)
 
   return (
     <OrderConfirmedContainer>
@@ -46,6 +46,7 @@ export function OrderConfirmed() {
                   <span>{readablePaymentType(order.paymentType)}</span>
                 </div>
               </OrderConfirmedInfoTag>
+              <button onClick={onClean}>Chegouuu!</button>
             </div>
           </OrderConfirmedInfo>
           <img src={OrderConfirmedBackgroundImg} alt="" />

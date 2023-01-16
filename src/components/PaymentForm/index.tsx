@@ -1,14 +1,16 @@
-import { CreditCard, MapPinLine, Money } from 'phosphor-react'
+import { Check, CreditCard, MapPinLine, Money, X } from 'phosphor-react'
 import { useFormContext } from 'react-hook-form'
 import { NewOrderCheckoutForm } from '../../pages/OrderCheckout'
 
 import {
   AddressFormContainer,
+  FieldValidation,
   FormTitle,
   InputContainer,
   PaymentFormContainer,
   PaymentTypeButton,
   PaymentTypeFormContainer,
+  Validation,
 } from './styles'
 
 interface PaymentFormProps {
@@ -22,11 +24,23 @@ export const PaymentForm = ({
   handleChangePaymentType,
   onCompleteOrderCheckout,
 }: PaymentFormProps) => {
-  const { register, handleSubmit } = useFormContext()
+  const { register, watch, handleSubmit } = useFormContext()
 
   const handleCompleteOrderCheckout = (data: any) => {
     onCompleteOrderCheckout(data)
   }
+
+  const zipCode = watch('zipCode')
+  const street = watch('street')
+  const neighborhood = watch('neighborhood')
+  const complement = watch('complement')
+  const number = watch('number')
+
+  const isCepValid = /^[0-9]{5}-[0-9]{3}$/.test(zipCode)
+  const isStreetValid = street.length > 5
+  const isNeighborhoodValid = neighborhood.length > 5
+  const isComplementValid = complement.length > 3
+  const isNumberValid = parseInt(number) > 0 && parseInt(number) <= 999
 
   return (
     <PaymentFormContainer>
@@ -61,6 +75,25 @@ export const PaymentForm = ({
           <input type="text" placeholder="Cidade" {...register('city')} />
           <input type="text" placeholder="UF" {...register('state')} />
         </InputContainer>
+        <Validation>
+          <FieldValidation valid={isStreetValid}>
+            Rua com + de 5 caracteres {FieldValidationIcon(isStreetValid)}
+          </FieldValidation>
+          <FieldValidation valid={isNumberValid}>
+            Número entre 1 e 999 {FieldValidationIcon(isNumberValid)}
+          </FieldValidation>
+          <FieldValidation valid={isNeighborhoodValid}>
+            Bairro com + de 5 caracteres{' '}
+            {FieldValidationIcon(isNeighborhoodValid)}
+          </FieldValidation>
+          <FieldValidation valid={isCepValid}>
+            CEP no formato: 0000-000 {FieldValidationIcon(isCepValid)}
+          </FieldValidation>
+          <FieldValidation valid={isComplementValid}>
+            Complemento com + de 3 caracteres{' '}
+            {FieldValidationIcon(isComplementValid)}
+          </FieldValidation>
+        </Validation>
       </AddressFormContainer>
       <PaymentTypeFormContainer>
         <FormTitle>
@@ -97,4 +130,11 @@ export const PaymentForm = ({
       </PaymentTypeFormContainer>
     </PaymentFormContainer>
   )
+}
+
+const FieldValidationIcon = (validation: boolean) => {
+  if (validation) {
+    return <Check />
+  }
+  return <X />
 }
