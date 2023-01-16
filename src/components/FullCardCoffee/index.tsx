@@ -1,4 +1,5 @@
 import { ShoppingCart } from 'phosphor-react'
+import { Coffee } from '../../contexts/CartContext'
 import { CoffeeAmount } from '../CoffeeAmount'
 import {
   FullCardCoffeeContainer,
@@ -6,16 +7,6 @@ import {
   FullCardCoffeePrice,
   FullCardCoffeeTags,
 } from './styles'
-
-export interface Coffee {
-  id: string
-  title: string
-  tags: string[]
-  amount: number
-  description: string
-  image: string
-  price: string
-}
 
 interface FullCardCoffeeProps {
   coffee: Coffee

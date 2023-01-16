@@ -1,6 +1,6 @@
 import { Trash } from 'phosphor-react'
+import { Coffee } from '../../contexts/CartContext'
 import { CoffeeAmount } from '../CoffeeAmount'
-import { Coffee } from '../FullCardCoffee'
 import {
   HalfCardCoffeeContainer,
   HalfCardCoffeeInfo,
