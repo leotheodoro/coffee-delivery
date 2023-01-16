@@ -14,7 +14,7 @@ interface FullCardCoffeeProps {
 }
 
 export const FullCardCoffee = ({ coffee }: FullCardCoffeeProps) => {
-  const { onAdd } = useContext(CartContext)
+  const { onAdd, onRemove } = useContext(CartContext)
   const [quantity, setQuantity] = useState(0)
 
   function handleAdd() {
@@ -28,6 +28,10 @@ export const FullCardCoffee = ({ coffee }: FullCardCoffeeProps) => {
   }
 
   function handleAddToCart() {
+    if (quantity === 0) {
+      return onRemove(coffee.id)
+    }
+
     const coffeeToAdd = {
       ...coffee,
       quantity,

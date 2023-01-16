@@ -49,7 +49,6 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   }, 0)
 
   function onAdd(coffee: Coffee) {
-    console.log(coffee)
     const coffeeAlreadyExistsInCart = items.findIndex(
       (item) => item.id === coffee.id,
     )
@@ -73,6 +72,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         draft.splice(coffeeExistsInCart, 1)
       }
     })
+
+    console.log(newCart)
 
     setItems(newCart)
   }
