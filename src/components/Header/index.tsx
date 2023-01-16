@@ -8,12 +8,13 @@ import { CartContext } from '../../contexts/CartContext'
 
 export function Header() {
   const { quantity } = useContext(CartContext)
-  console.log(quantity)
 
   const isCartEmpty = quantity <= 0
   return (
     <HeaderContainer>
-      <img src={logoCoffeeDelivery} alt="" />
+      <NavLink to="/">
+        <img src={logoCoffeeDelivery} alt="" />
+      </NavLink>
       <nav>
         <div color="yellow">
           <MapPin size={22} weight="fill" />

@@ -14,8 +14,17 @@ interface FullCardCoffeeProps {
 }
 
 export const FullCardCoffee = ({ coffee }: FullCardCoffeeProps) => {
-  const { onAdd, onRemove } = useContext(CartContext)
-  const [quantity, setQuantity] = useState(0)
+  const { onAdd, onRemove, items: coffees } = useContext(CartContext)
+
+  const coffeeAlreadyExistsInCart = coffees.findIndex(
+    (coffeeItem) => coffeeItem.id === coffee.id,
+  )
+
+  const [quantity, setQuantity] = useState(
+    coffeeAlreadyExistsInCart >= 0
+      ? coffees[coffeeAlreadyExistsInCart].quantity
+      : 0,
+  )
 
   function handleAdd() {
     setQuantity((oldQuantity) => oldQuantity + 1)

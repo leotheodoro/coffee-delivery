@@ -9,10 +9,16 @@ import {
   PriceTag,
 } from './styles'
 
-import coffees from '../../assets/coffees-object/coffeesObject'
+import { useContext } from 'react'
+import { CartContext } from '../../contexts/CartContext'
+import { formatMoney } from '../../utils/formatMoney'
 
 export const CartInfo = () => {
-  const isCartEmpty = false
+  const { items: coffees, total } = useContext(CartContext)
+
+  const formattedTotal = formatMoney(total)
+
+  const isCartEmpty = coffees.length === 0
   const isButtonDisabled = isCartEmpty
 
   return (
@@ -26,8 +32,9 @@ export const CartInfo = () => {
           </CartEmptyMessage>
         ) : (
           <CoffeesList>
-            <HalfCardCoffee coffee={coffees[0]} />
-            <HalfCardCoffee coffee={coffees[1]} />
+            {coffees.map((coffee) => (
+              <HalfCardCoffee key={coffee.id} coffee={coffee} />
+            ))}
           </CoffeesList>
         )}
 
@@ -35,7 +42,7 @@ export const CartInfo = () => {
           <PriceTag>
             <p>Total de Itens</p>
             <span>
-              R$<span>{`0,00`}</span>
+              R$<span>{formattedTotal}</span>
             </span>
           </PriceTag>
           <PriceTag>
@@ -47,7 +54,7 @@ export const CartInfo = () => {
           <PriceTag>
             <h5>Total</h5>
             <h5>
-              R$<span>{`0,00`}</span>
+              R$<span>{formattedTotal}</span>
             </h5>
           </PriceTag>
         </PriceInfo>

@@ -73,8 +73,6 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
       }
     })
 
-    console.log(newCart)
-
     setItems(newCart)
   }
 
@@ -86,7 +84,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         const item = draft[coffeeExistsInCart]
 
         draft[coffeeExistsInCart].quantity =
-          type === 'add' ? item.quantity + 1 : (item.quantity = 1)
+          type === 'add' ? item.quantity + 1 : item.quantity - 1
       }
     })
 
