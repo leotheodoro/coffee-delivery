@@ -1,5 +1,7 @@
 import { CreditCard, MapPinLine, Money } from 'phosphor-react'
-import { useState } from 'react'
+import { useFormContext } from 'react-hook-form'
+import { NewOrderCheckoutForm } from '../../pages/OrderCheckout'
+
 import {
   AddressFormContainer,
   FormTitle,
@@ -9,17 +11,30 @@ import {
   PaymentTypeFormContainer,
 } from './styles'
 
-export const PaymentForm = () => {
-  const [paymentType, setPaymentType] = useState('')
+interface PaymentFormProps {
+  paymentType: string
+  onCompleteOrderCheckout: (data: NewOrderCheckoutForm) => void
+  handleChangePaymentType: (type: string) => void
+}
 
-  function handleChangePaymentType(paymentTypeValue: string) {
-    setPaymentType(paymentTypeValue)
+export const PaymentForm = ({
+  paymentType,
+  handleChangePaymentType,
+  onCompleteOrderCheckout,
+}: PaymentFormProps) => {
+  const { register, handleSubmit } = useFormContext()
+
+  const handleCompleteOrderCheckout = (data: any) => {
+    onCompleteOrderCheckout(data)
   }
 
   return (
     <PaymentFormContainer>
       <h2>Complete seu pedido</h2>
-      <AddressFormContainer>
+      <AddressFormContainer
+        onSubmit={handleSubmit(handleCompleteOrderCheckout)}
+        id="orderCheckoutFormId"
+      >
         <FormTitle>
           <MapPinLine />
           <div>
@@ -27,16 +42,24 @@ export const PaymentForm = () => {
             <span>Informe o endereço onde deseja receber seu pedido</span>
           </div>
         </FormTitle>
-        <input type="text" placeholder="CEP" />
-        <input type="text" placeholder="Rua" />
+        <input type="text" placeholder="CEP" {...register('zipCode')} />
+        <input type="text" placeholder="Rua" {...register('street')} />
         <InputContainer>
-          <input type="text" placeholder="Número" />
-          <input type="text" placeholder="Complemento" />
+          <input type="text" placeholder="Número" {...register('number')} />
+          <input
+            type="text"
+            placeholder="Complemento"
+            {...register('complement')}
+          />
         </InputContainer>
         <InputContainer>
-          <input type="text" placeholder="Bairro" />
-          <input type="text" placeholder="Cidade" />
-          <input type="text" placeholder="UF" />
+          <input
+            type="text"
+            placeholder="Bairro"
+            {...register('neighborhood')}
+          />
+          <input type="text" placeholder="Cidade" {...register('city')} />
+          <input type="text" placeholder="UF" {...register('state')} />
         </InputContainer>
       </AddressFormContainer>
       <PaymentTypeFormContainer>

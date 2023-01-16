@@ -66,7 +66,7 @@ export const CartInfo = () => {
               : 'Completar o pedido'
           }
           type="submit"
-          form="completeOrderForm"
+          form="orderCheckoutFormId"
         >
           Confirmar Pedido
         </CompleteOrderButton>

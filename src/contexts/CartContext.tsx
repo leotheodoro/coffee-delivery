@@ -11,14 +11,29 @@ export interface Coffee {
   price: number
 }
 
+interface Order {
+  zipCode: string
+  street: string
+  number: string
+  complement: string
+  neighborhood: string
+  city: string
+  state: string
+  id: string
+  date: string
+  paymentType: string
+}
+
 interface CartContextType {
   items: Coffee[]
+  order?: Order
   quantity: number
   total: number
   onAdd: (coffee: Coffee) => void
   onChangeItem: (coffeeId: string, type: 'add' | 'remove') => void
   onRemove: (coffeeId: string) => void
   onClean: () => void
+  onNewOrder: (order: Order) => void
 }
 
 interface CartContextProviderProps {
@@ -40,6 +55,17 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     }
 
     return []
+  })
+  const [order, setOrder] = useState<Order>(() => {
+    const storedOrder = localStorage.getItem(
+      `${COFFEE_DELIVERY_STORAGE_KEY}:order`,
+    )
+
+    if (storedOrder && storedOrder !== 'undefined') {
+      return JSON.parse(storedOrder)
+    }
+
+    return undefined
   })
 
   const quantity = items.length
@@ -95,12 +121,23 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     setItems([])
   }
 
+  function onNewOrder(order: Order) {
+    setOrder(order)
+  }
+
   useEffect(() => {
     localStorage.setItem(
       `${COFFEE_DELIVERY_STORAGE_KEY}:items`,
       JSON.stringify(items),
     )
   }, [items])
+
+  useEffect(() => {
+    localStorage.setItem(
+      `${COFFEE_DELIVERY_STORAGE_KEY}:order`,
+      JSON.stringify(order),
+    )
+  }, [order])
 
   return (
     <CartContext.Provider
@@ -112,6 +149,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         onChangeItem,
         onRemove,
         onClean,
+        onNewOrder,
+        order,
       }}
     >
       {children}

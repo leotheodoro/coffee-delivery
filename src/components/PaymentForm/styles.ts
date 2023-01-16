@@ -63,7 +63,7 @@ export const FormTitle = styled.div`
   }
 `
 
-export const AddressFormContainer = styled.div`
+export const AddressFormContainer = styled.form`
   width: 100%;
   padding: 3rem;
   min-height: 37.2rem;
